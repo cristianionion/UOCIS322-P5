@@ -44,7 +44,8 @@ def index():
 def submit():
     filled = []
     data = json.loads(request.form.get('submit_data'))
-    #print("len of blank row", len(
+    app.logger.debug("got post")
+   #print("len of blank row", len(
      #   {'date': '2021-01-01T00:00', 'dist': '200', 'miles': '', 'km': '', 'open': '', 'close': '', 'location': ''}))
     for row in data:
         #print(row)
@@ -70,9 +71,10 @@ def submit():
 
 @app.route("/display")
 def display():
-    d = db.tododb.find()
-    info = [info for info in d]
-    return flask.render_template("display.html", info=info)
+#    d = db.tododb.find()
+#    info = [info for info in d]
+    
+    return flask.render_template("display.html", info=list(db.tododb.find()))
 
 @app.errorhandler(404)
 def page_not_found(error):
