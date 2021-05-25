@@ -42,44 +42,42 @@ def index():
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    #filled = []
-    data = json.loads(request.form.get('submit_data'))
+
+
+    data = json.loads(request.form.get('submit_data')) #extract list
     app.logger.debug("GOT GOT POST POST")
 
-   
-    #for row in data:
-    #    #print(row)
-    #    if row !={'date': '2021-01-01T00:00', 'dist': '200', 'miles': '', 'km': '', 'open': '', 'close': '', 'location': ''}:
-    #        print("valid rows: ",row)
-    #        if row not in filled:
-    #            filled.append(row)
-    #print("new list: ", filled)
-    #print(len(filled))
-    #newdict = {}
-    db.tododb.drop()
+    db.tododb.drop() #clear the database
+
+
     for i in data:
-        db.tododb.insert_one(i)
+        db.tododb.insert_one(i) #add list contents to database
     #for i in range(len(filled)):
     #    newdict[i] = filled[i]
     #print("newdict: ", newdict)
     #db.tododb.insert_one(newdict)
     #render_template('calc.html', vals=list(db.tododb.find()))
-    message = "HEEEEEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+    #message = "H"
 
         #go through, insert valid rows in db
         #use drop/remove
     
-    print("DATA DATA DATA: ",data)
+    #print("DATA DATA DATA: ",data)
     ## DATA IS A LIST
 
     ###return some string show that submit worked
-    return flask.jsonify(message)
+    print("DATADATDATA: ", data)
+    print("LENGTH LENGTH LENGTH: ", len(data))
+    return str(data)
+
 
 
 @app.route("/display")
 def display():
+    d = db.tododb.find() # extract database data
+    l = list(d) # make it a list to be sent out
     print("WHAT IS BEING SENT TO DISPLAY: ",list(db.tododb.find()) )
-    return flask.render_template("display.html", info=list(db.tododb.find()))
+    return flask.render_template("display.html", info=l) # sends list to display.html
 
 @app.errorhandler(404)
 def page_not_found(error):

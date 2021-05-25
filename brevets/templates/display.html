@@ -2,13 +2,18 @@
 <html lang="en">
 <h1> display</h1>
 <p>
+    <!-- link for for loop logic https://stackoverflow.com/questions/17691838/range-in-jinja2-inside-a-for-loop -->
 {% for i in range(info|length)%}
-    <p>km .... {{info[i].km}}
-    miles ....{{info[i].miles}}
-     location ....{{info[i].location}}
-     open .... {{info[i].open}}
-     dist .... {{info[i].dist}}
-     close .... {{info[i].close}}</p>
+    <p>distance .... {{info[i].dist}} km
+    <br>start date .... {{info[i].date}}
+    <br> km .... {{info[i].km}} km
+    <br> miles ....{{info[i].miles}} miles
+    <br> open .... {{info[i].open}}
+    <br> distance .... {{info[i].dist}}
+    <br> close .... {{info[i].close}}
+    <br> location ....{{info[i].location}}</p>
+    <br>
+    <br>
 {% endfor %}
 </p>
 
