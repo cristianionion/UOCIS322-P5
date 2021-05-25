@@ -10,7 +10,7 @@ import arrow  # Replacement for datetime, based on moment.js
 import acp_times  # Brevet time calculations
 import config
 import os
-import docker
+#import docker
 import json
 from flask import Flask, redirect, url_for, request, render_template
 from pymongo import MongoClient
@@ -42,38 +42,43 @@ def index():
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    filled = []
+    #filled = []
     data = json.loads(request.form.get('submit_data'))
-    app.logger.debug("got post")
-   #print("len of blank row", len(
-     #   {'date': '2021-01-01T00:00', 'dist': '200', 'miles': '', 'km': '', 'open': '', 'close': '', 'location': ''}))
-    for row in data:
-        #print(row)
-        if row !={'date': '2021-01-01T00:00', 'dist': '200', 'miles': '', 'km': '', 'open': '', 'close': '', 'location': ''}:
-            print("valid rows: ",row)
-            if row not in filled:
-                filled.append(row)
-    print("new list: ", filled)
-    print(len(filled))
-    newdict = {}
-    for i in range(len(filled)):
-        newdict[i] = filled[i]
-    print("newdict: ", newdict)
+    app.logger.debug("GOT GOT POST POST")
+
+   
+    #for row in data:
+    #    #print(row)
+    #    if row !={'date': '2021-01-01T00:00', 'dist': '200', 'miles': '', 'km': '', 'open': '', 'close': '', 'location': ''}:
+    #        print("valid rows: ",row)
+    #        if row not in filled:
+    #            filled.append(row)
+    #print("new list: ", filled)
+    #print(len(filled))
+    #newdict = {}
+    db.tododb.drop()
+    for i in data:
+        db.tododb.insert_one(i)
+    #for i in range(len(filled)):
+    #    newdict[i] = filled[i]
+    #print("newdict: ", newdict)
     #db.tododb.insert_one(newdict)
     #render_template('calc.html', vals=list(db.tododb.find()))
-
+    message = "HEEEEEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
 
         #go through, insert valid rows in db
         #use drop/remove
+    
+    print("DATA DATA DATA: ",data)
+    ## DATA IS A LIST
 
-    return jsonify(output = data)
+    ###return some string show that submit worked
+    return flask.jsonify(message)
 
 
 @app.route("/display")
 def display():
-#    d = db.tododb.find()
-#    info = [info for info in d]
-    
+    print("WHAT IS BEING SENT TO DISPLAY: ",list(db.tododb.find()) )
     return flask.render_template("display.html", info=list(db.tododb.find()))
 
 @app.errorhandler(404)

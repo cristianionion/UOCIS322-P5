@@ -61,6 +61,7 @@
                      <option value="1000">1000km</option>
                   </select>
                </div>
+               
                <!-- columns 1 to 4  -->
                <div class="col-md-4">
                   <label>Begins at</label>
@@ -73,6 +74,7 @@
                <!-- columns 5 to 10 -->
             </div>
             <!-- row -->
+            <p id="succ">  </p>
             <br />  <!-- a little vertical space -->
             <!-- Although we do not use tables for general page layout, they are
                appropriate for something that really is a table, like this
@@ -176,7 +178,8 @@
                 $('#display').click(
                     function(e){
                         e.preventDefault();
-                        $.post('/display');
+                        window.location.replace('/display')
+                        //$.post('/display');
                         // redirect to /displayroute
                     }
                 );
@@ -188,7 +191,7 @@
 
                         $('.control').each(
                            function(index, obj){
-                              if($(obj).find("input[name='miles']").val != ""){
+                              if(index, $(obj).find("input[name='km']").val() != ""){
                                  var date = $('#begin_date').val();
                                  var dist = $('#brevet_dist_km').val();
                                  var miles = $(obj).find("input[name='miles']").val();
@@ -199,21 +202,27 @@
                                  //console.log(km,miles,open,close);
                                  all.push({date:date, dist:dist, miles:miles, km:km, open:open, close:close, location:location})
                               }
+                           }
+                        );
                               //https://stackoverflow.com/questions/15209386/convert-javascript-dictionary-to-python-dictionary/15209461
-                              $.post("/submit", {
-                                 submit_data: JSON.stringify(all)
-                              });
+                        $.post("/submit", {
+                           submit_data: JSON.stringify(all),
+                           function(response){
+                              $("#succ").html(response)
+                           },
+
+                        }, "json" );
 
 
 
-                              console.log(index,
-                              $(obj).find("input[name='miles']").val(),
-                              $(obj).find("input[name='km']").val(),
-                              $(obj).find("input[name='open']").val(),
-                              $(obj).find("input[name='close']").val(),
-                              $(obj).find("input[name='location']").val());
-                           });
-                       console.log(all)
+                           // //   console.log(index,
+                           // //   $(obj).find("input[name='miles']").val(),
+                           // //   $(obj).find("input[name='km']").val(),
+                           // //   $(obj).find("input[name='open']").val(),
+                           // //   $(obj).find("input[name='close']").val(),
+                           //    $(obj).find("input[name='location']").val());
+                        
+                       //console.log(all)
 
 
                         // collect all non-empty fields, send to /someroute
