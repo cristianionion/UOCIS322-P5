@@ -4,14 +4,13 @@
 <p>
     <!-- link for for loop logic https://stackoverflow.com/questions/17691838/range-in-jinja2-inside-a-for-loop -->
 {% for i in range(info|length)%}
-    <p>distance .... {{info[i].dist}} km
-    <br>start date .... {{info[i].date}}
-    <br> km .... {{info[i].km}} km
-    <br> miles ....{{info[i].miles}} miles
-    <br> open .... {{info[i].open}}
-    <br> distance .... {{info[i].dist}}
-    <br> close .... {{info[i].close}}
-    <br> location ....{{info[i].location}}</p>
+    <p>brevet distance.........{{info[i].dist}} km
+    <br>start date..................{{info[i].date}}
+    <br>control distance.......{{info[i].km}} km
+    <br>control miles...........{{info[i].miles}} miles
+    <br>open time................{{info[i].open}}
+    <br>close time...............{{info[i].close}}
+    <br> location...................{{info[i].location}}</p>
     <br>
     <br>
 {% endfor %}

@@ -12,6 +12,7 @@ import config
 import os
 #import docker
 import json
+from tests import filetobetested 
 from flask import Flask, redirect, url_for, request, render_template
 from pymongo import MongoClient
 
@@ -29,9 +30,8 @@ CONFIG = config.configuration()
 
 client = MongoClient('mongodb://' + os.environ['MONGODB_HOSTNAME'], 27017)
 db = client.tododb
+# database
 
-
-#### install docker
 
 @app.route("/")
 @app.route("/index")
@@ -52,20 +52,7 @@ def submit():
 
     for i in data:
         db.tododb.insert_one(i) #add list contents to database
-    #for i in range(len(filled)):
-    #    newdict[i] = filled[i]
-    #print("newdict: ", newdict)
-    #db.tododb.insert_one(newdict)
-    #render_template('calc.html', vals=list(db.tododb.find()))
-    #message = "H"
-
-        #go through, insert valid rows in db
-        #use drop/remove
-    
-    #print("DATA DATA DATA: ",data)
-    ## DATA IS A LIST
-
-    ###return some string show that submit worked
+    print("LOOK LOOK LOOOK  LLOOOOOOK LLLOOOOOOOO KL LLLOOOOOOOOK :", db)
     print("DATADATDATA: ", data)
     print("LENGTH LENGTH LENGTH: ", len(data))
     return str(data)
