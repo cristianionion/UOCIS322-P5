@@ -12,7 +12,6 @@ import config
 import os
 #import docker
 import json
-from tests import filetobetested 
 from flask import Flask, redirect, url_for, request, render_template
 from pymongo import MongoClient
 
